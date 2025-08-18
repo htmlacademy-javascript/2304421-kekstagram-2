@@ -1,7 +1,8 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Сергей Кожевников](https://up.htmlacademy.ru/javascript-individual/2/user/2304421).
-* Наставник: `Неизвестно`.
+* Наставник: [Владимир Вавщик](https://htmlacademy.ru/profile/id1610171).
+* Сайт: [Kekstagram](https://sergeykss.github.io/2304421-kekstagram-2/).
 
 ---
 
