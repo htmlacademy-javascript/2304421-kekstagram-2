@@ -1,5 +1,6 @@
 function checkStringLength(string, maxLength) {
   return string.length <= maxLength;
+
 }
 
 function isPalindrom(string) {
