@@ -22,14 +22,18 @@ function getInteger(string) {
     }
   }
   return integer.length > 0 ? parseInt(integer, 10) : NaN;
-}const NAMES = [
-  'Иван',
-  'Хуан',
-  'Мария',
-  'Кристоф',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Вашингтон',
-];
+}
 
+const checkDuration = function(startTime, endTime, startMeeting, meetingDuration) {
+  const toMinutes = (timeStr) => {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const startTimeMinutes = toMinutes(startTime);
+  const endTimeMinutes = toMinutes(endTime);
+  const startMeetingMinutes = toMinutes(startMeeting);
+  const meetingEndMinutes = startMeeting + meetingDuration;
+
+  return startMeetingMinutes >= startTimeMinutes && meetingEndMinutes <= endTimeMinutes;
+};
