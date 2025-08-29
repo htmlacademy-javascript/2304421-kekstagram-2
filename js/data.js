@@ -1,6 +1,5 @@
 import {getRandomInteger} from './util.js';
-import {createComment} from './create-comment.js';
-import {createPhoto} from './create-photo.js';
-const photoArray = () => Array.from({length: 25}, createPhoto);
+import {createComment, createPhoto} from './create-comment-and-photo.js';
+const getPhotoArray = () => Array.from({length: 25}, createPhoto);
 
-export {photoArray};
+export {getPhotoArray};

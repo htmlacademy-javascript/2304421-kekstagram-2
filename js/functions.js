@@ -22,14 +22,4 @@ function getInteger(string) {
     }
   }
   return integer.length > 0 ? parseInt(integer, 10) : NaN;
-}const NAMES = [
-  'Иван',
-  'Хуан',
-  'Мария',
-  'Кристоф',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Вашингтон',
-];
-
+}
