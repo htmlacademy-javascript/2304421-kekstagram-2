@@ -1,4 +1,4 @@
-import {getRandomInteger} from './util.js';
+import {getRandomInteger} from './utils.js';
 import {createComment, createPhoto} from './create-comment-and-photo.js';
 const getPhotoArray = () => Array.from({length: 25}, createPhoto);
 

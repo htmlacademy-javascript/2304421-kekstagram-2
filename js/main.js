@@ -1,2 +1,2 @@
-import './setup.js';
+import './const.js';
 import {getPhotoArray} from './data.js';
