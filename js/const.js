@@ -35,4 +35,3 @@ const FIRST_NAME_INDEX = 0;
 const LAST_NAME_INDEX = NAMES.length - 1;
 const MIN_COMMENTS_NUMBER = 0;
 const MAX_COMMENT_NUMBER = 30;
-
