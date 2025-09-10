@@ -1,3 +1,10 @@
+const getRandomInteger = (min, max) => {
+  const lower = Math.ceil(Math.min(min, max));
+  const upper = Math.floor(Math.max(min, max));
+  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
+  return result;
+};
+
 function checkStringLength(string, maxLength) {
   return string.length <= maxLength;
 
@@ -22,14 +29,7 @@ function getInteger(string) {
     }
   }
   return integer.length > 0 ? parseInt(integer, 10) : NaN;
-}const NAMES = [
-  'Иван',
-  'Хуан',
-  'Мария',
-  'Кристоф',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Вашингтон',
-];
+}
 
+
+export {getRandomInteger};
