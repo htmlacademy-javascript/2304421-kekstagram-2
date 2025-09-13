@@ -1,2 +1,1 @@
-import './const.js';
-import {getPhotoArray} from './data.js';
+import './thumbnails.js';
