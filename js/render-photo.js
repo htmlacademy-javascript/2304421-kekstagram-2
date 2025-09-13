@@ -18,6 +18,7 @@ const onBigPictureCancelClick = () => {
 
 const onEscapeDown = (evt) => {
   if (evt.key === 'Escape') {
+    evt.preventDefault();
     closeBigPicture();
   }
 };
@@ -41,7 +42,7 @@ const openBigPicture = (pictureId) => {
 
     socialComment.querySelector('.social__picture').src = comment.avatar;
     socialComment.querySelector('.social__picture').alt = comment.name;
-    socialComment.querySelector('.social__text').textContent = comment.message;
+    socialComment.querySelector('.social__text').textContent = comment.messages;
 
     socialCommentsFragment.append(socialComment);
   });
@@ -52,6 +53,9 @@ const openBigPicture = (pictureId) => {
   commentsLoader.classList.add('hidden');
 
   bigPicture.classList.remove('hidden');
+  bigPictureCancel.addEventListener('click', onBigPictureCancelClick);
+  document.body.classList.add('modal-open');
+  document.addEventListener('click', onEscapeDown);
 };
 
 
