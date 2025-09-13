@@ -1,4 +1,3 @@
-import './const.js';
 import { getPhotoArray } from './data.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
@@ -13,6 +12,7 @@ photos.forEach((photo) => {
   image.alt = photo.description;
   thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
   thumbnail.querySelector('.picture__likes').textContent = photo.likes;
+  thumbnail.dataset.pictureId = String(photo.id);
   fragment.appendChild(thumbnail);
 });
 container.appendChild(fragment);

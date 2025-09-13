@@ -1,4 +1,4 @@
-const MESSAGES = [
+export const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо.',
   'Но не всё.',
@@ -10,7 +10,7 @@ const MESSAGES = [
 ];
 
 
-const NAMES = [
+export const NAMES = [
   'Иван',
   'Хуан',
   'Мария',
@@ -25,13 +25,13 @@ const NAMES = [
   'Василиса'
 ];
 
-const MIN_LIKES = 15;
-const MAX_LIKES = 200;
-const MIN_AVATAR_NUMBER = 1;
-const MAX_AVATAR_NUMBER = 6;
-const FIRST_MESSAGE_INDEX = 0;
-const LAST_MESSAGE_INDEX = MESSAGES.length - 1;
-const FIRST_NAME_INDEX = 0;
-const LAST_NAME_INDEX = NAMES.length - 1;
-const MIN_COMMENTS_NUMBER = 0;
-const MAX_COMMENT_NUMBER = 30;
+export const MIN_LIKES = 15;
+export const MAX_LIKES = 200;
+export const MIN_AVATAR_NUMBER = 1;
+export const MAX_AVATAR_NUMBER = 6;
+export const FIRST_MESSAGE_INDEX = 0;
+export const LAST_MESSAGE_INDEX = MESSAGES.length - 1;
+export const FIRST_NAME_INDEX = 0;
+export const LAST_NAME_INDEX = NAMES.length - 1;
+export const MIN_COMMENTS_NUMBER = 0;
+export const MAX_COMMENT_NUMBER = 30;

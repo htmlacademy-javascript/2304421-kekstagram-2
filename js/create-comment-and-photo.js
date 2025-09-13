@@ -1,18 +1,18 @@
-import {getRandomInteger} from './utils';
-
-const avatarNumber = getRandomInteger(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER);
-const messageIndex = getRandomInteger(FIRST_MESSAGE_INDEX, LAST_MESSAGE_INDEX);
-const nameIndex = getRandomInteger(FIRST_NAME_INDEX, LAST_NAME_INDEX);
-const likesNumber = getRandomInteger(MIN_LIKES, MAX_LIKES);
-const commentsNumber = getRandomInteger(MIN_COMMENTS_NUMBER, MAX_COMMENT_NUMBER);
+import { getRandomInteger } from './utils';
+import * as consts from './const.js';
+const avatarNumber = getRandomInteger(consts.MIN_AVATAR_NUMBER, consts.MAX_AVATAR_NUMBER);
+const messageIndex = getRandomInteger(consts.FIRST_MESSAGE_INDEX, consts.LAST_MESSAGE_INDEX);
+const nameIndex = getRandomInteger(consts.FIRST_NAME_INDEX, consts.LAST_NAME_INDEX);
+const likesNumber = getRandomInteger(consts.MIN_LIKES, consts.MAX_LIKES);
+const commentsNumber = getRandomInteger(consts.MIN_COMMENTS_NUMBER, consts.MAX_COMMENT_NUMBER);
 
 let currentCommentId = 0;
 
 const createComment = () => ({
   id: ++currentCommentId,
   avatar: `img/avatar-${avatarNumber}.svg`,
-  messages: `${MESSAGES[messageIndex]}. ${MESSAGES[messageIndex]}`,
-  name: `${NAMES[nameIndex]}`,
+  messages: `${consts.MESSAGES[messageIndex]}. ${consts.MESSAGES[messageIndex]}`,
+  name: `${consts.NAMES[nameIndex]}`,
 });
 
 
@@ -26,6 +26,6 @@ const createPhoto = () => ({
   comments: Array.from({length: commentsNumber}, createComment),
 });
 
-export {createComment, createPhoto};
+export { createPhoto };
 
 
