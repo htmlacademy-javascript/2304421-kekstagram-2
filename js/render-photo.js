@@ -12,7 +12,7 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 
-let currentPhoto;
+const shownPhoto = null;
 let commentsShown = 5;
 const COMMENTS_STEP = 5;
 
@@ -20,7 +20,7 @@ const renderComments = () => {
   socialComments.innerHTML = '';
   const fragment = document.createDocumentFragment();
 
-  const commentsToShow = currentPhoto.comments.slice(0, commentsShown);
+  const commentsToShow = shownPhoto.comments.slice(0, commentsShown);
   commentsToShow.forEach((comment) => {
     const shownCommentTemplate = socialCommentsTemplate.cloneNode(true);
     shownCommentTemplate.querySelector('.social__picture').src = comment.avatar;
@@ -30,9 +30,9 @@ const renderComments = () => {
   });
   socialComments.append(fragment);
 
-  socialCommentCount.textContent = `${commentsToShow.length} из ${currentPhoto.comments.length} комментариев`;
+  socialCommentCount.textContent = `${commentsToShow.length} из ${shownPhoto.comments.length} комментариев`;
 
-  if (commentsToShow.length >= currentPhoto.comments.length) {
+  if (commentsToShow.length >= shownPhoto.comments.length) {
     commentsLoader.classList.add('hidden');
   } else {
     commentsLoader.classList.remove('hidden');
@@ -40,7 +40,7 @@ const renderComments = () => {
 };
 
 const onCommentsLoaderClick = () => {
-  commentsShown = Math.min(commentsShown + COMMENTS_STEP, currentPhoto.comments.length);
+  commentsShown = Math.min(commentsShown + COMMENTS_STEP, shownPhoto.comments.length);
   renderComments();
 };
 
@@ -83,8 +83,6 @@ const openBigPicture = (pictureId) => {
   socialComments.append(socialCommentsFragment);
 
   commentsCaption.textContent = currentPhoto.description;
-  // socialCommentCount.classList.add('hidden');
-  // commentsLoader.classList.add('hidden');
 
   bigPicture.classList.remove('hidden');
   bigPictureCancel.addEventListener('click', onBigPictureCancelClick);
