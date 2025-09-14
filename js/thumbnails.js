@@ -1,8 +1,8 @@
 import { getPhotoArray } from './data.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
-export const photos = getPhotoArray();
-export const container = document.querySelector('.pictures');
+const photos = getPhotoArray();
+const container = document.querySelector('.pictures');
 const fragment = document.createDocumentFragment();
 
 photos.forEach((photo) => {
@@ -16,3 +16,5 @@ photos.forEach((photo) => {
   fragment.appendChild(thumbnail);
 });
 container.appendChild(fragment);
+
+export { photos, container };

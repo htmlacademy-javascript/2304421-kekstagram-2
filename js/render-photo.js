@@ -1,16 +1,44 @@
 import { photos } from './thumbnails.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
-const likesCount = bigPicture.querySelector('.likes-count');
-const shownCommentsCount = bigPicture.querySelector('.social__comment-shown-count');
-const totalCommentsCount = bigPicture.querySelector('.social__comment-total-count');
-const socialComments = bigPicture.querySelector('.social__comments');
-const socialCommentsTemplate = socialComments.querySelector('.social__comment');
-const commentsCaption = bigPicture.querySelector('.social__caption');
-const socialCommentCount = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
-const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+// const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
+// const likesCount = bigPicture.querySelector('.likes-count');
+// const shownCommentsCount = bigPicture.querySelector('.social__comment-shown-count');
+// const totalCommentsCount = bigPicture.querySelector('.social__comment-total-count');
+// const socialComments = bigPicture.querySelector('.social__comments');
+// const socialCommentsTemplate = socialComments.querySelector('.social__comment');
+// const commentsCaption = bigPicture.querySelector('.social__caption');
+// const socialCommentCount = bigPicture.querySelector('.social__comment-count');
+// const commentsLoader = bigPicture.querySelector('.comments-loader');
+// const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+let bigPictureImg;
+let likesCount;
+// let shownCommentsCount;
+// let totalCommentsCount;
+let socialComments;
+let socialCommentsTemplate;
+let commentsCaption;
+let socialCommentCount;
+let commentsLoader;
+let bigPictureCancel;
+
+
+if (bigPicture) {
+  bigPictureImg = bigPicture.querySelector('.big-picture__img img').querySelector('img');
+  likesCount = bigPicture.querySelector('.likes-count');
+  socialComments = bigPicture.querySelector('.social__comments');
+  // shownCommentsCount = bigPicture.querySelector('.social__comment-shown-count');
+  // totalCommentsCount = bigPicture.querySelector('.social__comment-total-count');
+
+  if (socialComments) {
+    socialCommentsTemplate = socialComments.querySelector('.social__comment');
+  }
+
+  commentsCaption = bigPicture.querySelector('.social__caption');
+  socialCommentCount = bigPicture.querySelector('.social__comment-count');
+  commentsLoader = bigPicture.querySelector('.comments-loader');
+  bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+}
 
 let currentPhoto;
 let commentsShown = 5;

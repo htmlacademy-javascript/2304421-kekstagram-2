@@ -32,4 +32,4 @@ function getInteger(string) {
 }
 
 
-export {getRandomInteger};
+export { getRandomInteger };
