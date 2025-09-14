@@ -9,3 +9,4 @@ container.addEventListener('click', (evt) => {
     openBigPicture(currentPicture.dataset.pictureId);
   }
 });
+

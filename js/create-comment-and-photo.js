@@ -1,4 +1,4 @@
-import { getRandomInteger } from './utils';
+import { getRandomInteger } from './utils.js';
 import * as consts from './const.js';
 
 
