@@ -1,9 +1,8 @@
-import './const.js';
 import { getPhotoArray } from './data.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
-export const photos = getPhotoArray();
-export const container = document.querySelector('.pictures');
+const photos = getPhotoArray();
+const container = document.querySelector('.pictures');
 const fragment = document.createDocumentFragment();
 
 photos.forEach((photo) => {
@@ -13,6 +12,9 @@ photos.forEach((photo) => {
   image.alt = photo.description;
   thumbnail.querySelector('.picture__comments').textContent = photo.comments.length;
   thumbnail.querySelector('.picture__likes').textContent = photo.likes;
+  thumbnail.dataset.pictureId = String(photo.id);
   fragment.appendChild(thumbnail);
 });
 container.appendChild(fragment);
+
+export { photos, container };
