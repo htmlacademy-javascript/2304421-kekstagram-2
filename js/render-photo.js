@@ -27,13 +27,12 @@ const onEscapeDown = (evt) => {
   }
 };
 
-const closeBigPicture = () => {
+function closeBigPicture() {
   bigPicture.classList.add('hidden');
   bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscapeDown);
   document.body.classList.remove('modal-open');
-  commentsLoader.onclick = null;
-};
+}
 
 const renderComments = () => {
   socialComments.innerHTML = '';
@@ -58,6 +57,10 @@ const renderComments = () => {
   }
 };
 
+const onCommentsLoaderClick = () => {
+  commentsShown = Math.min(commentsShown + COMMENTS_STEP, currentPhoto.comments.length);
+  renderComments();
+};
 
 const openBigPicture = (pictureId) => {
   currentPhoto = photos.find((photo) => photo.id === Number(pictureId));
@@ -73,10 +76,8 @@ const openBigPicture = (pictureId) => {
   bigPictureCancel.addEventListener('click', onBigPictureCancelClick);
   document.addEventListener('keydown', onEscapeDown);
 
-  commentsLoader.onclick = () => {
-    commentsShown = Math.min(commentsShown + COMMENTS_STEP, currentPhoto.comments.length);
-    renderComments();
-  };
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
 
