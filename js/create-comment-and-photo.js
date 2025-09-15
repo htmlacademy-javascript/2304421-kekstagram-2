@@ -1,3 +1,5 @@
+import {getRandomInteger} from './utils';
+
 const avatarNumber = getRandomInteger(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER);
 const messageIndex = getRandomInteger(FIRST_MESSAGE_INDEX, LAST_MESSAGE_INDEX);
 const nameIndex = getRandomInteger(FIRST_NAME_INDEX, LAST_NAME_INDEX);

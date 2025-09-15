@@ -1,9 +1,9 @@
 import './const.js';
-import {getPhotoArray} from './data.js';
+import { getPhotoArray } from './data.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
-const photos = getPhotoArray();
-const container = document.querySelector('.pictures');
+export const photos = getPhotoArray();
+export const container = document.querySelector('.pictures');
 const fragment = document.createDocumentFragment();
 
 photos.forEach((photo) => {
