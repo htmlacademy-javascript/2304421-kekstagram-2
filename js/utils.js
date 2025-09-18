@@ -5,6 +5,73 @@ const getRandomInteger = (min, max) => {
   return result;
 };
 
+
+let errorMessage = '';
+export const error = () => errorMessage;
+
+const isTextHashtagValid = (value) => {
+  errorMessage = '';
+
+  if (!value.trim()) {
+    return true;
+  }
+
+  const tags = value.trim().split(/\s+/);
+
+  if (tags.length > 5) {
+    errorMessage = 'Нельзя указывать больше пяти хэштегов';
+    return false;
+  }
+
+  const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+
+  for (let i = 0; i < tags.length; i++) {
+    const tag = tags[i];
+
+    if (!tag.startsWith('#')) {
+      errorMessage = 'Хэштег должен начинаться с символа #';
+      return false;
+    }
+
+    if (tag === '#') {
+      errorMessage = 'Хэштег не может состоять только из #';
+      return false;
+    }
+
+    if (tag.length > 20) {
+      errorMessage = 'Максимальная длина хэштега - 20 символов';
+      return false;
+    }
+
+    if (!/^#[a-zа-яё0-9]{1,19}$/i.test(tag)) {
+      errorMessage = 'Хэштег должен содержать только буквы и числа';
+      return false;
+    }
+
+    if (lowerCaseTags.indexOf(lowerCaseTags[i]) !== i) {
+      errorMessage = 'Один и тот же хэштег нельзя использовать дважды';
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const isTextDescriptionValid = (value) => {
+  errorMessage = '';
+
+  if (!value.trim()) {
+    return true;
+  }
+
+  if (value.length > 140) {
+    errorMessage = 'Длина комментария не может составлять больше 140 символов';
+    return false;
+  }
+  return true;
+};
+
+
 function checkStringLength(string, maxLength) {
   return string.length <= maxLength;
 
@@ -33,3 +100,4 @@ function getInteger(string) {
 
 
 export { getRandomInteger };
+export { isTextHashtagValid, isTextDescriptionValid };

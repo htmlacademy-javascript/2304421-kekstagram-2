@@ -1,3 +1,5 @@
+import { isTextHashtagValid, isTextDescriptionValid, error } from './utils.js';
+
 const uploadFileInput = document.querySelector('#upload-file');
 const editImgForm = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
@@ -14,14 +16,19 @@ const imgUploadForm = document.querySelector('.img-upload__form');
 const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
 
-
+// Функция закрытия формы по кнопке Escape
 const onEscapeDown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeEditImgForm();
+    if (document.activeElement === textHashtagsInput || document.activeElement === textDescription) {
+      evt.stopPropagation();
+    } else {
+      closeEditImgForm();
+    }
   }
 };
 
+// Загрузка фотографии и реализация изменения масштаба
 uploadFileInput.addEventListener('change', () => {
   editImgForm.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -47,11 +54,9 @@ scaleControlBigger.addEventListener('click', () => {
   }
 });
 
-// effectLevelValue.value = 100;
-// slider.noUiSlider.on('update', () => {
-//   effectLavelValue.value = slider.noUiSlider.get();
-// });
+effectLevelValue.value = 100;
 
+// Создание слайдера
 noUiSlider.create(slider, {
   range: { min: 0, max: 100 },
   start: 100,
@@ -59,6 +64,11 @@ noUiSlider.create(slider, {
   connect: 'lower',
 });
 
+slider.noUiSlider.on('update', () => {
+  effectLevelValue.value = slider.noUiSlider.get();
+});
+
+// Функция применения эффектов
 const applyEffect = (effect, value) => {
   if (effect === 'chrome') {
     imagePreview.style.filter = `grayscale(${value})`;
@@ -113,39 +123,29 @@ effects.forEach((effect) => {
   });
 });
 
+//Валидация формы
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
+  errorClass: 'img-upload__field-wrapper--error',
   errorTextTag: 'div',
-  errorTextClass: 'form__error'
 });
 
-pristine.addValidator(
-  textDescription,
-  (value) => value.length <= 140,
-);
+pristine.addValidator(textHashtagsInput, isTextHashtagValid, error, 1, false);
+pristine.addValidator(textDescription, isTextDescriptionValid, error, 1, false);
 
-pristine.addValidator(
-  textHashtagsInput,
-  (value) => {
-    if (!value.trim()) {
-      return true;
-    }
-    const tags = value.trim().split(/\s+/);
-    if (tags.length > 5) {
-      return false;
-    }
-    return tags.every((tag) => /^#[a-zа-яё0-9]{1,19}$/i.test(tag));
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  if (pristine.validate()) {
+    textHashtagsInput.value = textHashtagsInput.value.trim().replaceAll(/\s+/g, ' ');
+    imgUploadForm.submit();
   }
-);
+};
 
-imgUploadForm.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
+imgUploadForm.addEventListener('submit', onFormSubmit);
 
+//Функция закрытия формы
 function closeEditImgForm() {
   editImgForm.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -158,3 +158,4 @@ function closeEditImgForm() {
   imagePreview.style.filter = 'none';
   pristine.reset();
 }
+
