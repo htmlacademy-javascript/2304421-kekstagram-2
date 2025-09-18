@@ -1,4 +1,4 @@
-import { isTextHashtagValid, isTextDescriptionValid, error } from './utils.js';
+import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription } from './utils.js';
 
 const uploadFileInput = document.querySelector('#upload-file');
 const editImgForm = document.querySelector('.img-upload__overlay');
@@ -63,6 +63,8 @@ noUiSlider.create(slider, {
   step: 1,
   connect: 'lower',
 });
+
+sliderContainer.classList.add('hidden');
 
 slider.noUiSlider.on('update', () => {
   effectLevelValue.value = slider.noUiSlider.get();
@@ -131,8 +133,8 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextTag: 'div',
 });
 
-pristine.addValidator(textHashtagsInput, isTextHashtagValid, error, 1, false);
-pristine.addValidator(textDescription, isTextDescriptionValid, error, 1, false);
+pristine.addValidator(textHashtagsInput, isTextHashtagValid, errorHashtag, 1, false);
+pristine.addValidator(textDescription, isTextDescriptionValid, errorDescription, 1, false);
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();

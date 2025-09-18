@@ -7,7 +7,7 @@ const getRandomInteger = (min, max) => {
 
 
 let errorMessage = '';
-export const error = () => errorMessage;
+export const errorHashtag = () => errorMessage;
 
 const isTextHashtagValid = (value) => {
   errorMessage = '';
@@ -57,15 +57,18 @@ const isTextHashtagValid = (value) => {
   return true;
 };
 
+let errorMessageDescription = '';
+export const errorDescription = () => errorMessageDescription;
+
 const isTextDescriptionValid = (value) => {
-  errorMessage = '';
+  errorMessageDescription = '';
 
   if (!value.trim()) {
     return true;
   }
 
   if (value.length > 140) {
-    errorMessage = 'Длина комментария не может составлять больше 140 символов';
+    errorMessageDescription = 'Длина комментария не может составлять больше 140 символов';
     return false;
   }
   return true;
