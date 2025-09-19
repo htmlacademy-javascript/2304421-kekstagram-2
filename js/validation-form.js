@@ -66,10 +66,6 @@ noUiSlider.create(slider, {
 
 sliderContainer.classList.add('hidden');
 
-slider.noUiSlider.on('update', () => {
-  effectLevelValue.value = slider.noUiSlider.get();
-});
-
 // Функция применения эффектов
 const applyEffect = (effect, value) => {
   if (effect === 'chrome') {
@@ -119,6 +115,7 @@ effects.forEach((effect) => {
 
       slider.noUiSlider.off('update');
       slider.noUiSlider.on('update', (_, __, value) => {
+        effectLevelValue.value = slider.noUiSlider.get();
         applyEffect(effectValue, value);
       });
     }
