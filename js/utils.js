@@ -71,6 +71,7 @@ const isTextDescriptionValid = (value) => {
     errorMessageDescription = 'Длина комментария не может составлять больше 140 символов';
     return false;
   }
+
   return true;
 };
 
