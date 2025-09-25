@@ -41,7 +41,7 @@ const renderComments = () => {
     const socialComment = socialCommentTemplate.cloneNode(true);
     socialComment.querySelector('.social__picture').src = comment.avatar;
     socialComment.querySelector('.social__picture').alt = comment.name;
-    socialComment.querySelector('.social__text').textContent = comment.messages;
+    socialComment.querySelector('.social__text').textContent = comment.message;
     socialCommentsFragment.append(socialComment);
   });
 

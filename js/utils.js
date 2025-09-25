@@ -75,6 +75,29 @@ const isTextDescriptionValid = (value) => {
   return true;
 };
 
+const ERROR_SHOWN_TIME = 5000;
+const dataErrorTemplate = document.querySelector('#data-error').content;
+const body = document.body;
+
+const showErrorMessage = (message) => {
+  const errorArea = dataErrorTemplate.cloneNode(true);
+  if (message) {
+    errorArea.querySelector('.data-error__title').textContent = message;
+  }
+  body.append(errorArea);
+  const dataErrorSection = document.querySelector('.data-error');
+
+  setTimeout(() => {
+    dataErrorSection.remove();
+  }, ERROR_SHOWN_TIME);
+};
+
+// <template id="data-error">
+//   <section class="data-error">
+//     <h2 class="data-error__title">Не удалось загрузить данные</h2>
+//   </section>
+// </template>
+
 
 // function checkStringLength(string, maxLength) {
 //   return string.length <= maxLength;
@@ -103,5 +126,4 @@ const isTextDescriptionValid = (value) => {
 // }
 
 
-export { getRandomInteger };
-export { isTextHashtagValid, isTextDescriptionValid };
+export { isTextHashtagValid, isTextDescriptionValid, getRandomInteger, showErrorMessage };
