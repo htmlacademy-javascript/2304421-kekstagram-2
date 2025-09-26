@@ -1,4 +1,5 @@
-import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription } from './utils.js';
+import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage } from './utils.js';
+import { sendData } from './api.js';
 
 const uploadFileInput = document.querySelector('#upload-file');
 const editImgForm = document.querySelector('.img-upload__overlay');
@@ -15,6 +16,7 @@ const sliderContainer = editImgForm.querySelector('.img-upload__effect-level');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
+const formSubmitButton = imgUploadForm.querySelector('.img-upload__submit');
 
 // Функция закрытия формы по кнопке Escape
 const onEscapeDown = (evt) => {
@@ -138,7 +140,13 @@ const onFormSubmit = (evt) => {
 
   if (pristine.validate()) {
     textHashtagsInput.value = textHashtagsInput.value.trim().replaceAll(/\s+/g, ' ');
-    imgUploadForm.submit();
+    disabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
+    sendData(new FormData(imgUploadForm))
+      .then(() => {
+        enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
+        closeEditImgForm();
+        showSuccessMessage();
+      });
   }
 };
 
@@ -155,6 +163,10 @@ function closeEditImgForm() {
   sliderContainer.classList.add('hidden');
   slider.classList.add('hidden');
   imagePreview.style.filter = 'none';
+  imgUploadForm.querySelector('[value="none"]').checked = true;
+  textHashtagsInput.value = '';
+  textDescription.value = '';
+  formSubmitButton.disabled = false;
   pristine.reset();
 }
 

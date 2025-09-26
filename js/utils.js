@@ -1,3 +1,4 @@
+// Получение случайного целого числа
 const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
   const upper = Math.floor(Math.max(min, max));
@@ -5,7 +6,7 @@ const getRandomInteger = (min, max) => {
   return result;
 };
 
-
+// Функция валидации написания хэштега
 let errorMessage = '';
 export const errorHashtag = () => errorMessage;
 
@@ -57,6 +58,7 @@ const isTextHashtagValid = (value) => {
   return true;
 };
 
+// Функция проверки валидации описания
 let errorMessageDescription = '';
 export const errorDescription = () => errorMessageDescription;
 
@@ -75,8 +77,10 @@ const isTextDescriptionValid = (value) => {
   return true;
 };
 
+// Сообщения о удачной/неудачной отправке формы
 const ERROR_SHOWN_TIME = 5000;
 const dataErrorTemplate = document.querySelector('#data-error').content;
+const dataSuccessTemplate = document.querySelector('#success').content;
 const body = document.body;
 
 const showErrorMessage = (message) => {
@@ -92,11 +96,60 @@ const showErrorMessage = (message) => {
   }, ERROR_SHOWN_TIME);
 };
 
-// <template id="data-error">
-//   <section class="data-error">
-//     <h2 class="data-error__title">Не удалось загрузить данные</h2>
-//   </section>
-// </template>
+
+const showSuccessMessage = (message) => {
+  const successArea = dataSuccessTemplate.cloneNode(true);
+
+  if (message) {
+    successArea.querySelector('.success__title').textContent = message;
+  }
+
+  body.append(successArea);
+  const successSection = document.querySelector('.success');
+  const successButton = document.querySelector('.success__button');
+
+  const onEscapeDown = (evt) => {
+    if (evt.key === 'Escape') {
+      closeSuccessArea();
+    }
+  };
+
+  const onClickOutside = (evt) => {
+    if (evt.target === successSection) {
+      closeSuccessArea();
+    }
+  };
+
+  function closeSuccessArea () {
+    successSection.remove();
+    successButton.removeEventListener('click', closeSuccessArea);
+    document.removeEventListener('keydown', onEscapeDown);
+    successSection.removeEventListener('click', onClickOutside);
+  }
+
+  successButton.addEventListener('click', closeSuccessArea);
+  document.addEventListener('keydown', onEscapeDown);
+  successSection.addEventListener('click', onClickOutside);
+};
+
+
+// Методы блокирования/разблокирования кнопки отправки формы
+const SUBMIT_BUTTON_TEXT = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...',
+};
+
+const disabledButton = (button, text) => {
+  button.disabled = true;
+  button.textContent = text;
+};
+
+const enabledButton = (button, text) => {
+  button.disabled = false;
+  button.textContent = text;
+};
+
+export { isTextHashtagValid, isTextDescriptionValid, getRandomInteger, showErrorMessage, showSuccessMessage, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton };
 
 
 // function checkStringLength(string, maxLength) {
@@ -126,4 +179,3 @@ const showErrorMessage = (message) => {
 // }
 
 
-export { isTextHashtagValid, isTextDescriptionValid, getRandomInteger, showErrorMessage };

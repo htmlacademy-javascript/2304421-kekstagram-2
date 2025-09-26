@@ -1,9 +1,7 @@
-// import { getPhotoArray } from './data.js';
 import { getData } from './api.js';
 import { showErrorMessage } from './utils.js';
 
 const template = document.querySelector('#picture').content.querySelector('.picture');
-// const photos = getData();
 const container = document.querySelector('.pictures');
 
 let photos = [];
