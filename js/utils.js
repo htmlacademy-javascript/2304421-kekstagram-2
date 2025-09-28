@@ -1,5 +1,5 @@
 // Получение случайного целого числа
-const getRandomInteger = (min, max) => {
+export const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
   const upper = Math.floor(Math.max(min, max));
   const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
@@ -8,7 +8,7 @@ const getRandomInteger = (min, max) => {
 
 // Функция валидации написания хэштега
 let errorMessage = '';
-export const errorHashtag = () => errorMessage;
+const errorHashtag = () => errorMessage;
 
 const isTextHashtagValid = (value) => {
   errorMessage = '';
@@ -60,7 +60,7 @@ const isTextHashtagValid = (value) => {
 
 // Функция проверки валидации описания
 let errorMessageDescription = '';
-export const errorDescription = () => errorMessageDescription;
+const errorDescription = () => errorMessageDescription;
 
 const isTextDescriptionValid = (value) => {
   errorMessageDescription = '';
@@ -77,13 +77,13 @@ const isTextDescriptionValid = (value) => {
   return true;
 };
 
-// Сообщения о удачной/неудачной отправке формы
+// Сообщение с ошибкой загрузки изображений от других пользователей
 const ERROR_SHOWN_TIME = 5000;
 const dataErrorTemplate = document.querySelector('#data-error').content;
 const dataSuccessTemplate = document.querySelector('#success').content;
 const body = document.body;
 
-const showErrorMessage = (message) => {
+export const showErrorMessage = (message) => {
   const errorArea = dataErrorTemplate.cloneNode(true);
   if (message) {
     errorArea.querySelector('.data-error__title').textContent = message;
@@ -96,7 +96,7 @@ const showErrorMessage = (message) => {
   }, ERROR_SHOWN_TIME);
 };
 
-
+// Сообщение об успешной отправке изображения
 const showSuccessMessage = (message) => {
   const successArea = dataSuccessTemplate.cloneNode(true);
 
@@ -133,6 +133,48 @@ const showSuccessMessage = (message) => {
 };
 
 
+// Сообщение с ошибкой отправки изображения
+const sendErrorMessageTemplate = document.querySelector('#error').content;
+
+const showSendErrorMessage = (message) => {
+  const sendErrorMessageArea = sendErrorMessageTemplate.cloneNode(true);
+  if (message) {
+    sendErrorMessageArea.querySelector('.error__title').textContent = message;
+  }
+
+  body.append(sendErrorMessageArea);
+  const sendErrorMessageSection = document.querySelector('.error');
+  const sendErrorButton = document.querySelector('.error__button');
+
+  const onEscapeDown = (evt) => {
+    evt.stopPropagation();
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closeSendErrorArea();
+    }
+  };
+
+  const onClickOutside = (evt) => {
+    if (evt.target === sendErrorMessageSection) {
+      closeSendErrorArea();
+    }
+  };
+
+  function closeSendErrorArea () {
+    sendErrorMessageSection.remove();
+    sendErrorButton.removeEventListener('click', closeSendErrorArea);
+    sendErrorMessageSection.removeEventListener('keydown', onEscapeDown);
+    sendErrorMessageSection.removeEventListener('click', onClickOutside);
+  }
+
+  sendErrorButton.addEventListener('click', closeSendErrorArea);
+  sendErrorMessageSection.addEventListener('keydown', onEscapeDown);
+  sendErrorMessageSection.tabIndex = -1;
+  sendErrorMessageSection.focus();
+  sendErrorMessageSection.addEventListener('click', onClickOutside);
+};
+
+
 // Методы блокирования/разблокирования кнопки отправки формы
 const SUBMIT_BUTTON_TEXT = {
   IDLE: 'Опубликовать',
@@ -149,13 +191,8 @@ const enabledButton = (button, text) => {
   button.textContent = text;
 };
 
-export { isTextHashtagValid, isTextDescriptionValid, getRandomInteger, showErrorMessage, showSuccessMessage, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton };
+export { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage };
 
-
-// function checkStringLength(string, maxLength) {
-//   return string.length <= maxLength;
-
-// }
 
 // function isPalindrom(string) {
 //   const normalizedString = string.replaceAll(' ', '').toUpperCase();

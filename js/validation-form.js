@@ -1,4 +1,4 @@
-import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage } from './utils.js';
+import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
 
 const uploadFileInput = document.querySelector('#upload-file');
@@ -143,9 +143,15 @@ const onFormSubmit = (evt) => {
     disabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
     sendData(new FormData(imgUploadForm))
       .then(() => {
-        enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
         closeEditImgForm();
         showSuccessMessage();
+      })
+      .catch((err) => {
+        console.error(err.message);
+        showSendErrorMessage();
+      })
+      .finally(() => {
+        enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
       });
   }
 };
@@ -157,6 +163,7 @@ function closeEditImgForm() {
   editImgForm.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadFileInput.value = '';
+  textHashtagsInput.value = '';
   imagePreview.style.transform = 'scale(1)';
   scaleControlValue.value = '100%';
   document.removeEventListener('keydown', onEscapeDown);
@@ -164,7 +171,6 @@ function closeEditImgForm() {
   slider.classList.add('hidden');
   imagePreview.style.filter = 'none';
   imgUploadForm.querySelector('[value="none"]').checked = true;
-  textHashtagsInput.value = '';
   textDescription.value = '';
   formSubmitButton.disabled = false;
   pristine.reset();

@@ -8,5 +8,6 @@ container.addEventListener('click', (evt) => {
   if (currentPicture) {
     evt.preventDefault();
     openBigPicture(currentPicture.dataset.pictureId);
+    container.setAttribute('inert', '');
   }
 });

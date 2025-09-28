@@ -1,4 +1,5 @@
 import { photos } from './thumbnails.js';
+import { container } from './thumbnails.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
@@ -32,6 +33,7 @@ function closeBigPicture() {
   bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscapeDown);
   document.body.classList.remove('modal-open');
+  container.removeAttribute('inert');
 }
 
 const renderComments = () => {
