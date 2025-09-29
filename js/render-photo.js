@@ -1,5 +1,6 @@
 import { photos } from './thumbnails.js';
 import { container } from './thumbnails.js';
+import { footer } from './validation-form.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
@@ -34,6 +35,7 @@ function closeBigPicture() {
   document.removeEventListener('keydown', onEscapeDown);
   document.body.classList.remove('modal-open');
   container.removeAttribute('inert');
+  footer.inert = false;
 }
 
 const renderComments = () => {

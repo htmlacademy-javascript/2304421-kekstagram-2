@@ -1,5 +1,6 @@
 import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
+import { container } from './thumbnails.js';
 
 const uploadFileInput = document.querySelector('#upload-file');
 const editImgForm = document.querySelector('.img-upload__overlay');
@@ -17,6 +18,7 @@ const imgUploadForm = document.querySelector('.img-upload__form');
 const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
 const formSubmitButton = imgUploadForm.querySelector('.img-upload__submit');
+export const footer = document.querySelector('footer');
 
 // Функция закрытия формы по кнопке Escape
 const onEscapeDown = (evt) => {
@@ -36,6 +38,10 @@ uploadFileInput.addEventListener('change', () => {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapeDown);
   closeFormButton.addEventListener('click', closeEditImgForm);
+  footer.inert = true;
+  container.querySelectorAll('.picture').forEach((item) => {
+    item.inert = true;
+  });
 });
 
 scaleControlSmaller.addEventListener('click', () => {
@@ -174,5 +180,9 @@ function closeEditImgForm() {
   textDescription.value = '';
   formSubmitButton.disabled = false;
   pristine.reset();
+  footer.inert = false;
+  container.querySelectorAll('.picture').forEach((item) => {
+    item.inert = false;
+  });
 }
 
