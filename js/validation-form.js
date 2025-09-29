@@ -1,4 +1,6 @@
-import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription } from './utils.js';
+import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
+import { sendData } from './api.js';
+import { container } from './thumbnails.js';
 
 const uploadFileInput = document.querySelector('#upload-file');
 const editImgForm = document.querySelector('.img-upload__overlay');
@@ -15,6 +17,8 @@ const sliderContainer = editImgForm.querySelector('.img-upload__effect-level');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
+const formSubmitButton = imgUploadForm.querySelector('.img-upload__submit');
+export const footer = document.querySelector('footer');
 
 // Функция закрытия формы по кнопке Escape
 const onEscapeDown = (evt) => {
@@ -34,6 +38,10 @@ uploadFileInput.addEventListener('change', () => {
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapeDown);
   closeFormButton.addEventListener('click', closeEditImgForm);
+  footer.inert = true;
+  container.querySelectorAll('.picture').forEach((item) => {
+    item.inert = true;
+  });
 });
 
 scaleControlSmaller.addEventListener('click', () => {
@@ -138,7 +146,19 @@ const onFormSubmit = (evt) => {
 
   if (pristine.validate()) {
     textHashtagsInput.value = textHashtagsInput.value.trim().replaceAll(/\s+/g, ' ');
-    imgUploadForm.submit();
+    disabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
+    sendData(new FormData(imgUploadForm))
+      .then(() => {
+        closeEditImgForm();
+        showSuccessMessage();
+      })
+      .catch((err) => {
+        console.error(err.message);
+        showSendErrorMessage();
+      })
+      .finally(() => {
+        enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
+      });
   }
 };
 
@@ -149,12 +169,20 @@ function closeEditImgForm() {
   editImgForm.classList.add('hidden');
   body.classList.remove('modal-open');
   uploadFileInput.value = '';
+  textHashtagsInput.value = '';
   imagePreview.style.transform = 'scale(1)';
   scaleControlValue.value = '100%';
   document.removeEventListener('keydown', onEscapeDown);
   sliderContainer.classList.add('hidden');
   slider.classList.add('hidden');
   imagePreview.style.filter = 'none';
+  imgUploadForm.querySelector('[value="none"]').checked = true;
+  textDescription.value = '';
+  formSubmitButton.disabled = false;
   pristine.reset();
+  footer.inert = false;
+  container.querySelectorAll('.picture').forEach((item) => {
+    item.inert = false;
+  });
 }
 

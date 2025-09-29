@@ -1,4 +1,6 @@
 import { photos } from './thumbnails.js';
+import { container } from './thumbnails.js';
+import { footer } from './validation-form.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
@@ -32,6 +34,8 @@ function closeBigPicture() {
   bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscapeDown);
   document.body.classList.remove('modal-open');
+  container.removeAttribute('inert');
+  footer.inert = false;
 }
 
 const renderComments = () => {
@@ -41,7 +45,7 @@ const renderComments = () => {
     const socialComment = socialCommentTemplate.cloneNode(true);
     socialComment.querySelector('.social__picture').src = comment.avatar;
     socialComment.querySelector('.social__picture').alt = comment.name;
-    socialComment.querySelector('.social__text').textContent = comment.messages;
+    socialComment.querySelector('.social__text').textContent = comment.message;
     socialCommentsFragment.append(socialComment);
   });
 
