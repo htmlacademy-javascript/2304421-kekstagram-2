@@ -53,6 +53,6 @@ getData()
     filterSection.classList.remove('img-filters--inactive');
   })
   .catch((err) => {
-    console.error(err.message);
     showErrorMessage();
+    throw new Error(err.message);
   });

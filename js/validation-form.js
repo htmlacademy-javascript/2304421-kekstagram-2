@@ -19,6 +19,7 @@ const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
 const formSubmitButton = imgUploadForm.querySelector('.img-upload__submit');
 export const footer = document.querySelector('footer');
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 // Функция закрытия формы по кнопке Escape
 const onEscapeDown = (evt) => {
@@ -41,6 +42,15 @@ uploadFileInput.addEventListener('change', () => {
   footer.inert = true;
   container.querySelectorAll('.picture').forEach((item) => {
     item.inert = true;
+
+    const file = uploadFileInput.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+    if (matches) {
+      imagePreview.src = URL.createObjectURL(file);
+    }
   });
 });
 
@@ -62,7 +72,7 @@ scaleControlBigger.addEventListener('click', () => {
   }
 });
 
-effectLevelValue.value = 100;
+// effectLevelValue.value = 100;
 
 // Создание слайдера
 noUiSlider.create(slider, {
@@ -97,9 +107,11 @@ effects.forEach((effect) => {
       const effectValue = evt.target.value;
 
       if (effectValue === 'none') {
+        slider.noUiSlider.off('update');
         sliderContainer.classList.add('hidden');
         slider.classList.add('hidden');
         imagePreview.style.filter = 'none';
+        effectLevelValue.value = '';
         return;
       }
 
@@ -153,8 +165,9 @@ const onFormSubmit = (evt) => {
         showSuccessMessage();
       })
       .catch((err) => {
-        console.error(err.message);
+        // console.error(err.message);
         showSendErrorMessage();
+        throw new Error(err.message);
       })
       .finally(() => {
         enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
