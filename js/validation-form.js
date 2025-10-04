@@ -19,6 +19,7 @@ const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
 const formSubmitButton = imgUploadForm.querySelector('.img-upload__submit');
 export const footer = document.querySelector('footer');
+const effectsPreviews = document.querySelectorAll('.effects__preview');
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 // Функция закрытия формы по кнопке Escape
@@ -43,15 +44,20 @@ uploadFileInput.addEventListener('change', () => {
   container.querySelectorAll('.picture').forEach((item) => {
     item.inert = true;
 
-    const file = uploadFileInput.files[0];
-    const fileName = file.name.toLowerCase();
-
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
-
-    if (matches) {
-      imagePreview.src = URL.createObjectURL(file);
-    }
   });
+  const file = uploadFileInput.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    const objectUrl = URL.createObjectURL(file);
+    imagePreview.src = objectUrl;
+
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url(${objectUrl})`;
+    });
+  }
 });
 
 scaleControlSmaller.addEventListener('click', () => {
