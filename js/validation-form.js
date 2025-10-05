@@ -78,8 +78,6 @@ scaleControlBigger.addEventListener('click', () => {
   }
 });
 
-// effectLevelValue.value = 100;
-
 // Создание слайдера
 noUiSlider.create(slider, {
   range: { min: 0, max: 100 },
@@ -129,7 +127,7 @@ effects.forEach((effect) => {
       if (effectValue === 'chrome' || effectValue === 'sepia') {
         options = { range: { min: 0, max: 1 }, start: 1, step: 0.1 };
       } else if (effectValue === 'marvin') {
-        options = { range: { min: 0, max: 100}, start: 100, step: 0.1 };
+        options = { range: { min: 0, max: 100}, start: 100, step: 1 };
       } else if (effectValue === 'phobos') {
         options = {range: { min: 0, max: 3 }, start: 3, step: 0.1 };
       } else if (effectValue === 'heat') {
@@ -141,7 +139,10 @@ effects.forEach((effect) => {
 
       slider.noUiSlider.off('update');
       slider.noUiSlider.on('update', (_, __, value) => {
-        effectLevelValue.value = slider.noUiSlider.get();
+        const rawValue = parseFloat(slider.noUiSlider.get());
+        const roundedValue = Math.round(rawValue * 10) / 10;
+
+        effectLevelValue.value = Number.isInteger(roundedValue) ? String(roundedValue) : roundedValue.toString();
         applyEffect(effectValue, value);
       });
     }
@@ -170,10 +171,9 @@ const onFormSubmit = (evt) => {
         closeEditImgForm();
         showSuccessMessage();
       })
-      .catch((err) => {
-        // console.error(err.message);
+      .catch(() => {
         showSendErrorMessage();
-        throw new Error(err.message);
+        // throw new Error(err.message);
       })
       .finally(() => {
         enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);

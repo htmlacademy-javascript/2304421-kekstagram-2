@@ -33,8 +33,3 @@ const getData = () => load(ROUTE.GET_DATA, ERROR_TEXT.GET_DATA);
 const sendData = (body) => load(ROUTE.POST_DATA, ERROR_TEXT.SEND_DATA, METHOD.POST, body);
 
 export {getData, sendData};
-
-// const loadPhotos = () => fetch(`${BASED_URL}${ROUTE.GET_DATA}`, {
-//   method: METHOD.GET,
-//   credentials: 'include',
-// }).then((response) => response.ok ? response.json() : Promise.reject('Message'));

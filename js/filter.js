@@ -52,9 +52,8 @@ const initFilters = () => {
       renderThumbnails(defaultArray);
       filterSection.classList.remove('img-filters--inactive');
     })
-    .catch((err) => {
+    .catch(() => {
       showErrorMessage();
-      console.error(err.message);
       // throw new Error(err.message);
     });
 };
