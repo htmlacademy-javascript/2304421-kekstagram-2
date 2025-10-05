@@ -45,14 +45,18 @@ filterSection.addEventListener('click', (evt) => {
   }
 });
 
+const initFilters = () => {
+  getData()
+    .then((data) => {
+      defaultArray = data;
+      renderThumbnails(defaultArray);
+      filterSection.classList.remove('img-filters--inactive');
+    })
+    .catch(() => {
+      showErrorMessage();
+      // throw new Error(err.message);
+    });
+};
 
-getData()
-  .then((data) => {
-    defaultArray = data;
-    renderThumbnails(defaultArray);
-    filterSection.classList.remove('img-filters--inactive');
-  })
-  .catch((err) => {
-    console.error(err.message);
-    showErrorMessage();
-  });
+export { initFilters };
+

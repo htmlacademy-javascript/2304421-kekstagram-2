@@ -1,9 +1,5 @@
-import { getData } from './api.js';
-import { showErrorMessage } from './utils.js';
-
 const template = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
-// const filterSection = document.querySelector('.img-filters');
 
 let photos = [];
 
@@ -25,14 +21,5 @@ const renderThumbnails = (photoArray) => {
   container.appendChild(fragment);
 };
 
-// getData()
-//   .then((data) => {
-//     renderThumbnails(data);
-//     filterSection.classList.remove('img-filters--inactive');
-//   })
-//   .catch((err) => {
-//     console.error(err.message);
-//     showErrorMessage();
-//   });
 
 export { container, photos, renderThumbnails };
