@@ -191,7 +191,17 @@ const enabledButton = (button, text) => {
   button.textContent = text;
 };
 
-export { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage };
+function debounce (callback, timeoutDelay = 500) {
+
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage, debounce };
 
 
 // function isPalindrom(string) {
