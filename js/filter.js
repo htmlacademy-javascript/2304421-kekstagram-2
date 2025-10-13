@@ -54,7 +54,6 @@ const initFilters = () => {
     })
     .catch(() => {
       showErrorMessage();
-      // throw new Error(err.message);
     });
 };
 

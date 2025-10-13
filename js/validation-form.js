@@ -2,18 +2,18 @@ import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescript
 import { sendData } from './api.js';
 import { container } from './thumbnails.js';
 
-const uploadFileInput = document.querySelector('#upload-file');
-const editImgForm = document.querySelector('.img-upload__overlay');
+const inputUploadFile = document.querySelector('#upload-file');
+const formEditImg = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
-const closeFormButton = document.querySelector('#upload-cancel');
-const scaleControlSmaller = editImgForm.querySelector('.scale__control--smaller');
-const scaleControlBigger = editImgForm.querySelector('.scale__control--bigger');
-const scaleControlValue = editImgForm.querySelector('.scale__control--value');
-const imagePreview = editImgForm.querySelector('.img-upload__preview img');
-const slider = editImgForm.querySelector('.effect-level__slider');
-const effectLevelValue = editImgForm.querySelector('.effect-level__value');
+const buttonCloseFrom = document.querySelector('#upload-cancel');
+const scaleControlSmaller = formEditImg.querySelector('.scale__control--smaller');
+const scaleControlBigger = formEditImg.querySelector('.scale__control--bigger');
+const scaleControlValue = formEditImg.querySelector('.scale__control--value');
+const imagePreview = formEditImg.querySelector('.img-upload__preview img');
+const slider = formEditImg.querySelector('.effect-level__slider');
+const effectLevelValue = formEditImg.querySelector('.effect-level__value');
 const effects = document.querySelectorAll('.effects__radio');
-const sliderContainer = editImgForm.querySelector('.img-upload__effect-level');
+const sliderContainer = formEditImg.querySelector('.img-upload__effect-level');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const textHashtagsInput = imgUploadForm.querySelector('.text__hashtags');
 const textDescription = imgUploadForm.querySelector('.text__description');
@@ -35,17 +35,17 @@ const onEscapeDown = (evt) => {
 };
 
 // Загрузка фотографии и реализация изменения масштаба
-uploadFileInput.addEventListener('change', () => {
-  editImgForm.classList.remove('hidden');
+inputUploadFile.addEventListener('change', () => {
+  formEditImg.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapeDown);
-  closeFormButton.addEventListener('click', closeEditImgForm);
+  buttonCloseFrom.addEventListener('click', closeEditImgForm);
   footer.inert = true;
   container.querySelectorAll('.picture').forEach((item) => {
     item.inert = true;
 
   });
-  const file = uploadFileInput.files[0];
+  const file = inputUploadFile.files[0];
   const fileName = file.name.toLowerCase();
 
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -173,7 +173,6 @@ const onFormSubmit = (evt) => {
       })
       .catch(() => {
         showSendErrorMessage();
-        // throw new Error(err.message);
       })
       .finally(() => {
         enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
@@ -185,9 +184,9 @@ imgUploadForm.addEventListener('submit', onFormSubmit);
 
 //Функция закрытия формы
 function closeEditImgForm() {
-  editImgForm.classList.add('hidden');
+  formEditImg.classList.add('hidden');
   body.classList.remove('modal-open');
-  uploadFileInput.value = '';
+  inputUploadFile.value = '';
   textHashtagsInput.value = '';
   imagePreview.style.transform = 'scale(1)';
   scaleControlValue.value = '100%';
