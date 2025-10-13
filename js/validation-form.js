@@ -173,7 +173,6 @@ const onFormSubmit = (evt) => {
       })
       .catch(() => {
         showSendErrorMessage();
-        // throw new Error(err.message);
       })
       .finally(() => {
         enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
