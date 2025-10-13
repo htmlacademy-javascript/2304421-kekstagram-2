@@ -1,4 +1,4 @@
-const BASED_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
 const ROUTE = {
   GET_DATA: '/data',
@@ -17,7 +17,7 @@ const ERROR_TEXT = {
 
 
 const load = (route, errorText = null, method = METHOD.GET, body = null) =>
-  fetch(`${BASED_URL}${route}`, {method, body})
+  fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Произошла ошибка ${response.status}: ${response.statusText}`);
@@ -33,8 +33,3 @@ const getData = () => load(ROUTE.GET_DATA, ERROR_TEXT.GET_DATA);
 const sendData = (body) => load(ROUTE.POST_DATA, ERROR_TEXT.SEND_DATA, METHOD.POST, body);
 
 export {getData, sendData};
-
-// const loadPhotos = () => fetch(`${BASED_URL}${ROUTE.GET_DATA}`, {
-//   method: METHOD.GET,
-//   credentials: 'include',
-// }).then((response) => response.ok ? response.json() : Promise.reject('Message'));
