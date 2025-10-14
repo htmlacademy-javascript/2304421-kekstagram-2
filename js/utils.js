@@ -8,7 +8,7 @@ export const getRandomInteger = (min, max) => {
 
 // Функция валидации написания хэштега
 let errorMessage = '';
-const errorHashtag = () => errorMessage;
+const showErrorHashtagMessage = () => errorMessage;
 
 const isTextHashtagValid = (value) => {
   errorMessage = '';
@@ -60,7 +60,7 @@ const isTextHashtagValid = (value) => {
 
 // Функция проверки валидации описания
 let errorMessageDescription = '';
-const errorDescription = () => errorMessageDescription;
+const showErrorDescriptionMessage = () => errorMessageDescription;
 
 const isTextDescriptionValid = (value) => {
   errorMessageDescription = '';
@@ -181,16 +181,17 @@ const SUBMIT_BUTTON_TEXT = {
   SENDING: 'Публикую...',
 };
 
-const disabledButton = (button, text) => {
+const disableSubmitButton = (button, text) => {
   button.disabled = true;
   button.textContent = text;
 };
 
-const enabledButton = (button, text) => {
+const enableSubmitButton = (button, text) => {
   button.disabled = false;
   button.textContent = text;
 };
 
+// Функция, которая «откладывает» вызов другой функции
 function debounce (callback, timeoutDelay = 500) {
 
   let timeoutId;
@@ -201,4 +202,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage, debounce };
+export { isTextHashtagValid, isTextDescriptionValid, showErrorHashtagMessage, showErrorDescriptionMessage, SUBMIT_BUTTON_TEXT, disableSubmitButton, enableSubmitButton, showSuccessMessage, showSendErrorMessage, debounce };

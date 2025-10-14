@@ -3,12 +3,12 @@ const container = document.querySelector('.pictures');
 
 let photos = [];
 
-const renderThumbnails = (photoArray) => {
-  photos = photoArray;
+const renderThumbnails = (photosArray) => {
+  photos = photosArray;
   container.querySelectorAll('.picture').forEach((el) => el.remove());
   const fragment = document.createDocumentFragment();
 
-  photoArray.forEach((photo) => {
+  photosArray.forEach((photo) => {
     const thumbnail = template.cloneNode(true);
     const image = thumbnail.querySelector('.picture__img');
     image.src = photo.url;

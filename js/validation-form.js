@@ -1,4 +1,4 @@
-import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
+import { isTextHashtagValid, isTextDescriptionValid, showErrorHashtagMessage, showErrorDescriptionMessage, SUBMIT_BUTTON_TEXT, disableSubmitButton, enableSubmitButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
 import { container } from './thumbnails.js';
 
@@ -157,15 +157,15 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextTag: 'div',
 });
 
-pristine.addValidator(textHashtagsInput, isTextHashtagValid, errorHashtag, 1, false);
-pristine.addValidator(textDescription, isTextDescriptionValid, errorDescription, 1, false);
+pristine.addValidator(textHashtagsInput, isTextHashtagValid, showErrorHashtagMessage, 1, false);
+pristine.addValidator(textDescription, isTextDescriptionValid, showErrorDescriptionMessage, 1, false);
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
 
   if (pristine.validate()) {
     textHashtagsInput.value = textHashtagsInput.value.trim().replaceAll(/\s+/g, ' ');
-    disabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
+    disableSubmitButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
     sendData(new FormData(imgUploadForm))
       .then(() => {
         closeEditImgForm();
@@ -175,7 +175,7 @@ const onFormSubmit = (evt) => {
         showSendErrorMessage();
       })
       .finally(() => {
-        enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
+        enableSubmitButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
       });
   }
 };
