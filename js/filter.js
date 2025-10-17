@@ -16,17 +16,17 @@ let defaults = [];
 
 const applyFilter = (id) => {
 
-  let arrayFiltered = [];
+  let photosFiltered = [];
 
   if (id === FILTER.DEFAULT) {
-    arrayFiltered = [...defaults];
+    photosFiltered = [...defaults];
   } else if (id === FILTER.RANDOM) {
-    arrayFiltered = [...defaults].sort(() => Math.random() - 0.5).slice(0, 10);
+    photosFiltered = [...defaults].sort(() => Math.random() - 0.5).slice(0, 10);
   } else if (id === FILTER.DISCUSSED) {
-    arrayFiltered = [...defaults].sort((a, b) => b.comments.length - a.comments.length);
+    photosFiltered = [...defaults].sort((a, b) => b.comments.length - a.comments.length);
   }
 
-  renderThumbnails(arrayFiltered);
+  renderThumbnails(photosFiltered);
 };
 
 const debouncedApplyFilter = debounce(applyFilter, 500);

@@ -29,7 +29,7 @@ const onEscapeDown = (evt) => {
     if (document.activeElement === textHashtagsInput || document.activeElement === textDescription) {
       evt.stopPropagation();
     } else {
-      closeEditImgForm();
+      onCloseEditImgForm();
     }
   }
 };
@@ -39,7 +39,7 @@ inputUploadFile.addEventListener('change', () => {
   formEditImg.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapeDown);
-  buttonCloseFrom.addEventListener('click', closeEditImgForm);
+  buttonCloseFrom.addEventListener('click', onCloseEditImgForm);
   footer.inert = true;
   container.querySelectorAll('.picture').forEach((item) => {
     item.inert = true;
@@ -168,7 +168,7 @@ const onFormSubmit = (evt) => {
     disableSubmitButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
     sendData(new FormData(imgUploadForm))
       .then(() => {
-        closeEditImgForm();
+        onCloseEditImgForm();
         showSuccessMessage();
       })
       .catch(() => {
@@ -183,7 +183,7 @@ const onFormSubmit = (evt) => {
 imgUploadForm.addEventListener('submit', onFormSubmit);
 
 //Функция закрытия формы
-function closeEditImgForm() {
+function onCloseEditImgForm() {
   formEditImg.classList.add('hidden');
   body.classList.remove('modal-open');
   inputUploadFile.value = '';

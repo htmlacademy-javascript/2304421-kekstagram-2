@@ -1,9 +1,11 @@
-// Получение случайного целого числа
-export const getRandomInteger = (min, max) => {
-  const lower = Math.ceil(Math.min(min, max));
-  const upper = Math.floor(Math.max(min, max));
-  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
-  return result;
+const ERROR_SHOWN_TIME = 5000;
+const dataErrorTemplate = document.querySelector('#data-error').content;
+const dataSuccessTemplate = document.querySelector('#success').content;
+const body = document.body;
+const sendErrorMessageTemplate = document.querySelector('#error').content;
+const SUBMIT_BUTTON_TEXT = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...',
 };
 
 // Функция валидации написания хэштега
@@ -78,11 +80,6 @@ const isTextDescriptionValid = (value) => {
 };
 
 // Сообщение с ошибкой загрузки изображений от других пользователей
-const ERROR_SHOWN_TIME = 5000;
-const dataErrorTemplate = document.querySelector('#data-error').content;
-const dataSuccessTemplate = document.querySelector('#success').content;
-const body = document.body;
-
 export const showErrorMessage = (message) => {
   const errorArea = dataErrorTemplate.cloneNode(true);
   if (message) {
@@ -110,32 +107,30 @@ const showSuccessMessage = (message) => {
 
   const onEscapeDown = (evt) => {
     if (evt.key === 'Escape') {
-      closeSuccessArea();
+      onCloseSuccessArea();
     }
   };
 
   const onClickOutside = (evt) => {
     if (evt.target === successSection) {
-      closeSuccessArea();
+      onCloseSuccessArea();
     }
   };
 
-  function closeSuccessArea () {
+  function onCloseSuccessArea () {
     successSection.remove();
-    successButton.removeEventListener('click', closeSuccessArea);
+    successButton.removeEventListener('click', onCloseSuccessArea);
     document.removeEventListener('keydown', onEscapeDown);
     successSection.removeEventListener('click', onClickOutside);
   }
 
-  successButton.addEventListener('click', closeSuccessArea);
+  successButton.addEventListener('click', onCloseSuccessArea);
   document.addEventListener('keydown', onEscapeDown);
   successSection.addEventListener('click', onClickOutside);
 };
 
 
 // Сообщение с ошибкой отправки изображения
-const sendErrorMessageTemplate = document.querySelector('#error').content;
-
 const showSendErrorMessage = (message) => {
   const sendErrorMessageArea = sendErrorMessageTemplate.cloneNode(true);
   if (message) {
@@ -150,24 +145,24 @@ const showSendErrorMessage = (message) => {
     evt.stopPropagation();
     if (evt.key === 'Escape') {
       evt.preventDefault();
-      closeSendErrorArea();
+      onCloseSendErrorArea();
     }
   };
 
   const onClickOutside = (evt) => {
     if (evt.target === sendErrorMessageSection) {
-      closeSendErrorArea();
+      onCloseSendErrorArea();
     }
   };
 
-  function closeSendErrorArea () {
+  function onCloseSendErrorArea () {
     sendErrorMessageSection.remove();
-    sendErrorButton.removeEventListener('click', closeSendErrorArea);
+    sendErrorButton.removeEventListener('click', onCloseSendErrorArea);
     sendErrorMessageSection.removeEventListener('keydown', onEscapeDown);
     sendErrorMessageSection.removeEventListener('click', onClickOutside);
   }
 
-  sendErrorButton.addEventListener('click', closeSendErrorArea);
+  sendErrorButton.addEventListener('click', onCloseSendErrorArea);
   sendErrorMessageSection.addEventListener('keydown', onEscapeDown);
   sendErrorMessageSection.tabIndex = -1;
   sendErrorMessageSection.focus();
@@ -176,11 +171,6 @@ const showSendErrorMessage = (message) => {
 
 
 // Методы блокирования/разблокирования кнопки отправки формы
-const SUBMIT_BUTTON_TEXT = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикую...',
-};
-
 const disableSubmitButton = (button, text) => {
   button.disabled = true;
   button.textContent = text;
