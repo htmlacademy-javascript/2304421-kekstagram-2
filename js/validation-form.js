@@ -1,4 +1,4 @@
-import { isTextHashtagValid, isTextDescriptionValid, errorHashtag, errorDescription, SUBMIT_BUTTON_TEXT, disabledButton, enabledButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
+import { isTextHashtagValid, isTextDescriptionValid, showErrorHashtagMessage, showErrorDescriptionMessage, SUBMIT_BUTTON_TEXT, disableSubmitButton, enableSubmitButton, showSuccessMessage, showSendErrorMessage } from './utils.js';
 import { sendData } from './api.js';
 import { container } from './thumbnails.js';
 
@@ -29,7 +29,7 @@ const onEscapeDown = (evt) => {
     if (document.activeElement === textHashtagsInput || document.activeElement === textDescription) {
       evt.stopPropagation();
     } else {
-      closeEditImgForm();
+      onCloseEditImgForm();
     }
   }
 };
@@ -39,7 +39,7 @@ inputUploadFile.addEventListener('change', () => {
   formEditImg.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscapeDown);
-  buttonCloseFrom.addEventListener('click', closeEditImgForm);
+  buttonCloseFrom.addEventListener('click', onCloseEditImgForm);
   footer.inert = true;
   container.querySelectorAll('.picture').forEach((item) => {
     item.inert = true;
@@ -157,25 +157,25 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextTag: 'div',
 });
 
-pristine.addValidator(textHashtagsInput, isTextHashtagValid, errorHashtag, 1, false);
-pristine.addValidator(textDescription, isTextDescriptionValid, errorDescription, 1, false);
+pristine.addValidator(textHashtagsInput, isTextHashtagValid, showErrorHashtagMessage, 1, false);
+pristine.addValidator(textDescription, isTextDescriptionValid, showErrorDescriptionMessage, 1, false);
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
 
   if (pristine.validate()) {
     textHashtagsInput.value = textHashtagsInput.value.trim().replaceAll(/\s+/g, ' ');
-    disabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
+    disableSubmitButton(formSubmitButton, SUBMIT_BUTTON_TEXT.SENDING);
     sendData(new FormData(imgUploadForm))
       .then(() => {
-        closeEditImgForm();
+        onCloseEditImgForm();
         showSuccessMessage();
       })
       .catch(() => {
         showSendErrorMessage();
       })
       .finally(() => {
-        enabledButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
+        enableSubmitButton(formSubmitButton, SUBMIT_BUTTON_TEXT.IDLE);
       });
   }
 };
@@ -183,7 +183,7 @@ const onFormSubmit = (evt) => {
 imgUploadForm.addEventListener('submit', onFormSubmit);
 
 //Функция закрытия формы
-function closeEditImgForm() {
+function onCloseEditImgForm() {
   formEditImg.classList.add('hidden');
   body.classList.remove('modal-open');
   inputUploadFile.value = '';

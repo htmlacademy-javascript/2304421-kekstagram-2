@@ -19,17 +19,17 @@ let commentsShown = 0;
 
 const onBigPictureCancelClick = (evt) => {
   evt.preventDefault();
-  closeBigPicture();
+  onCloseBigPicture();
 };
 
 const onEscapeDown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeBigPicture();
+    onCloseBigPicture();
   }
 };
 
-function closeBigPicture() {
+function onCloseBigPicture() {
   bigPicture.classList.add('hidden');
   bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
   document.removeEventListener('keydown', onEscapeDown);

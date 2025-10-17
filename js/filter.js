@@ -12,21 +12,21 @@ const FILTER = {
 const filterSection = document.querySelector('.img-filters');
 const filterButtons = filterSection.querySelectorAll('.img-filters__button');
 
-let defaultArray = [];
+let defaults = [];
 
 const applyFilter = (id) => {
 
-  let filteredArray = [];
+  let photosFiltered = [];
 
   if (id === FILTER.DEFAULT) {
-    filteredArray = [...defaultArray];
+    photosFiltered = [...defaults];
   } else if (id === FILTER.RANDOM) {
-    filteredArray = [...defaultArray].sort(() => Math.random() - 0.5).slice(0, 10);
+    photosFiltered = [...defaults].sort(() => Math.random() - 0.5).slice(0, 10);
   } else if (id === FILTER.DISCUSSED) {
-    filteredArray = [...defaultArray].sort((a, b) => b.comments.length - a.comments.length);
+    photosFiltered = [...defaults].sort((a, b) => b.comments.length - a.comments.length);
   }
 
-  renderThumbnails(filteredArray);
+  renderThumbnails(photosFiltered);
 };
 
 const debouncedApplyFilter = debounce(applyFilter, 500);
@@ -48,8 +48,8 @@ filterSection.addEventListener('click', (evt) => {
 const initFilters = () => {
   getData()
     .then((data) => {
-      defaultArray = data;
-      renderThumbnails(defaultArray);
+      defaults = data;
+      renderThumbnails(defaults);
       filterSection.classList.remove('img-filters--inactive');
     })
     .catch(() => {
