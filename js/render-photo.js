@@ -2,6 +2,7 @@ import { photos } from './thumbnails.js';
 import { container } from './thumbnails.js';
 import { footer } from './validation-form.js';
 
+const COMMENTS_STEP = 5;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -13,7 +14,6 @@ const socialCaption = bigPicture.querySelector('.social__caption');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 
-const COMMENTS_STEP = 5;
 let currentPhoto = null;
 let commentsShown = 0;
 

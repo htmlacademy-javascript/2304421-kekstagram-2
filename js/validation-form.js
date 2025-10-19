@@ -2,6 +2,7 @@ import { isTextHashtagValid, isTextDescriptionValid, showErrorHashtagMessage, sh
 import { sendData } from './api.js';
 import { container } from './thumbnails.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const inputUploadFile = document.querySelector('#upload-file');
 const formEditImg = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
@@ -20,7 +21,6 @@ const textDescription = imgUploadForm.querySelector('.text__description');
 const formSubmitButton = imgUploadForm.querySelector('.img-upload__submit');
 export const footer = document.querySelector('footer');
 const effectsPreviews = document.querySelectorAll('.effects__preview');
-const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 // Функция закрытия формы по кнопке Escape
 const onEscapeDown = (evt) => {
