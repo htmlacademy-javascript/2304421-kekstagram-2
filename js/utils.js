@@ -1,12 +1,12 @@
 const ERROR_SHOWN_TIME = 5000;
-const dataErrorTemplate = document.querySelector('#data-error').content;
-const dataSuccessTemplate = document.querySelector('#success').content;
-const body = document.body;
-const sendErrorMessageTemplate = document.querySelector('#error').content;
 const SUBMIT_BUTTON_TEXT = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...',
 };
+const dataErrorTemplate = document.querySelector('#data-error').content;
+const dataSuccessTemplate = document.querySelector('#success').content;
+const body = document.body;
+const sendErrorMessageTemplate = document.querySelector('#error').content;
 
 // Функция валидации написания хэштега
 let errorMessage = '';
